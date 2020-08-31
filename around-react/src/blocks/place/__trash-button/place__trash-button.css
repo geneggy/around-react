@@ -1,0 +1,16 @@
+.place__trash-button {
+  width: 18px;
+  height: 19.3px;
+  background: url('../../../images/trash.svg');
+  background-size: cover;
+  position: absolute;
+  top: 19px;
+  right: 15px;
+  border: none;
+  transition: opacity 0.5s;
+  }
+
+
+  .place__trash-button:hover {
+    opacity: 0.6;
+  }
