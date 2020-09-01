@@ -2,23 +2,11 @@ import React from 'react';
 import avatar from '../images/Avatar.png';
 import pen from '../images/pen.svg';
 
-function Main() {
-  function handleEditAvatarClick(e) {
-    e.preventDefault();
-    document.querySelector('.popup_avatar').classList.add('popup_open');
-  }
+function Main(props) {
 
-  function handleEditProfileClick(e) {
-    e.preventDefault();
-    document.querySelector('.popup_edit').classList.add('popup_open');
-  }
-
-  function handleAddPlaceClick(e) {
-    e.preventDefault();
-    document.querySelector('.popup_new-place').classList.add('popup_open');
-  }
 
   return (
+  
     <main>
       <section className="profile">
         <div className="profile__avatar-container">
@@ -27,7 +15,7 @@ function Main() {
             src={pen}
             alt="button"
             className="profile__avatar-edit"
-            onClick={handleEditAvatarClick}
+            onClick={props.handleEditAvatarClick}
           />
         </div>
 
@@ -36,7 +24,7 @@ function Main() {
           <button
             className="profile__edit-button"
             aria-label="open profile edit window"
-            onClick={handleEditProfileClick}
+            onClick={props.handleEditProfileClick}
           ></button>
           <p className="profile__subtitle">Explorer</p>
         </div>
@@ -44,11 +32,13 @@ function Main() {
         <button
           className="profile__add-button"
           aria-label="open add new image button"
-          onClick={handleAddPlaceClick}
+          onClick={props.handleAddPlaceClick}
         ></button>
       </section>
 
       <section className="places"></section>
+
+
     </main>
   );
 }
