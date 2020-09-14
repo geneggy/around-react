@@ -4,11 +4,14 @@ import Header from './Header.js';
 import Main from './Main.js';
 import Footer from './Footer.js';
 import PopupWithForm from './PopupWithForm.js';
+import PopupImage from './PopupImage.js';
 
 function App() {
   const [isEditAvatarOpen, setIsEditAvatarOpen] = React.useState(false);
   const [isEditProfileOpen, setIsEditProfileOpen] = React.useState(false);
   const [isAddPlaceOpen, setIsAddPlaceOpen] = React.useState(false);
+  const [isDeleteOpen, setIsDeleteOpen] = React.useState(false);
+  const [isImageOpen, setIsImageOpen] = React.useState(false);
 
   function handleEditAvatarClick() {
     setIsEditAvatarOpen(true);
@@ -20,6 +23,13 @@ function App() {
 
   function handleAddPlaceClick() {
     setIsAddPlaceOpen(true);
+  }
+
+  function handleCloseAllPopups() {
+    setIsEditAvatarOpen(false);
+    setIsEditProfileOpen(false);
+    setIsAddPlaceOpen(false);
+    setIsDeleteOpen(false);
   }
 
   // props isOpen :will be true or false value.
@@ -43,6 +53,7 @@ function App() {
       </div>
 
       <PopupWithForm
+        onExit={handleCloseAllPopups}
         isOpen={isEditProfileOpen}
         name="edit"
         title="Edit Profile"
@@ -81,6 +92,7 @@ function App() {
 
       <PopupWithForm
        isOpen={isAddPlaceOpen}
+       onExit={handleCloseAllPopups}
        name="new-place"
        title="New Place"
        submitButtonText="Create"
@@ -114,37 +126,29 @@ function App() {
         </span>
       </PopupWithForm>
 
-      <div className="popup popup_img">
-        <div className="popup__img-container">
-          <button
-            className="popup__exit popup__exit_img"
-            aria-label="close"
-          ></button>
-          <img alt="" className="popup__image" />
-          <p className="popup__subtext"></p>
-        </div>
-      </div>
+      <PopupImage
+        onExit = {handleCloseAllPopups}
+        isOpen = {isImageOpen}
+      >
+      </PopupImage>
 
-      <div className="popup popup_delete">
-        <div className="popup__container popup__container_delete">
-          <button
-            className="popup__exit popup__exit_delete"
-            aria-label="close"
-          ></button>
-          <h2 className="popup__title">Are you sure?</h2>
-          <button
-            className="popup__button popup__button-delete"
-            aria-label="save"
-            type="submit"
-          >
-            Save
-          </button>
-        </div>
-      </div>
+
+      <PopupWithForm
+        onExit={handleCloseAllPopups}
+        isOpen={isDeleteOpen}
+        containerName="popup__container_delete"
+        name="delete"
+        title="Are You Sure?"
+        submitButtonText="Yes"
+      >
+      </PopupWithForm>
+
 
       <PopupWithForm
        isOpen={isEditAvatarOpen}
+       onExit={handleCloseAllPopups}
        name="avatar"
+       containerName="popup__container_avatar"
        title="Edit Profile Picture"
        submitButtonText="Save"
       >
@@ -162,6 +166,9 @@ function App() {
             </span>
 
     </PopupWithForm>
+
+    
+
       <template id="placeTemplate">
         <div className="place">
           <button

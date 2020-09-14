@@ -1,16 +1,30 @@
 import React from 'react';
 import avatar from '../images/Avatar.png';
 import pen from '../images/pen.svg';
+import api from '../utils/Api.js';
 
 function Main(props) {
 
+  const [selectedCard, setSelectedCard] = React.useState();
+  const [userInfo, setUserInfo] = React.useState({});
+  const [cards, setCards] = React.useState([]);
+
+React.useEffect(() => {
+  api.getUserInfo()
+  .then((user) => {
+    setUserInfo(user);
+    
+  })
+}, []);
+
+console.log(userInfo);
 
   return (
   
     <main>
       <section className="profile">
         <div className="profile__avatar-container">
-          <img src={avatar} className="profile__avatar" alt="avatar" />
+          <img src={userInfo.avatar} className="profile__avatar" alt="avatar" />
           <img
             src={pen}
             alt="button"
@@ -20,13 +34,13 @@ function Main(props) {
         </div>
 
         <div className="profile__info">
-          <h1 className="profile__name">Jacques Cousteau</h1>
+  <h1 className="profile__name">{userInfo.name}</h1>
           <button
             className="profile__edit-button"
             aria-label="open profile edit window"
             onClick={props.handleEditProfileClick}
           ></button>
-          <p className="profile__subtitle">Explorer</p>
+          <p className="profile__subtitle">{userInfo.about}</p>
         </div>
 
         <button
