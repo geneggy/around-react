@@ -12,6 +12,7 @@ function App() {
   const [isAddPlaceOpen, setIsAddPlaceOpen] = React.useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = React.useState(false);
   const [isImageOpen, setIsImageOpen] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState({});
 
   function handleEditAvatarClick() {
     setIsEditAvatarOpen(true);
@@ -30,6 +31,13 @@ function App() {
     setIsEditProfileOpen(false);
     setIsAddPlaceOpen(false);
     setIsDeleteOpen(false);
+    setIsImageOpen(false);
+    setSelectedCard({});
+  }
+
+  function handleCardClick(card) {
+    setSelectedCard(card);
+    setIsImageOpen(true);
   }
 
   // props isOpen :will be true or false value.
@@ -48,6 +56,7 @@ function App() {
           handleAddPlaceClick={handleAddPlaceClick}
           handleEditAvatarClick={handleEditAvatarClick}
           handleEditProfileClick={handleEditProfileClick}
+          handleCardClick={handleCardClick}
         />
         <Footer />
       </div>
@@ -129,10 +138,9 @@ function App() {
       <PopupImage
         onExit = {handleCloseAllPopups}
         isOpen = {isImageOpen}
-      >
-      </PopupImage>
-
-
+        selectedCard = {selectedCard}
+      />
+     
       <PopupWithForm
         onExit={handleCloseAllPopups}
         isOpen={isDeleteOpen}
@@ -167,27 +175,6 @@ function App() {
 
     </PopupWithForm>
 
-    
-
-      <template id="placeTemplate">
-        <div className="place">
-          <button
-            className="place__trash-button place__trash-button_hidden"
-            aria-label="delete place"
-          ></button>
-          <img className="place__image" alt="" />
-          <div className="place__text-container">
-            <h2 className="place__title"></h2>
-            <div className="place__like-container">
-              <button
-                className="place__like-button"
-                aria-label="like place"
-              ></button>
-              <p className="place__likes">17</p>
-            </div>
-          </div>
-        </div>
-      </template>
     </>
   );
 }

@@ -1,11 +1,10 @@
 import React from 'react';
-import avatar from '../images/Avatar.png';
 import pen from '../images/pen.svg';
 import api from '../utils/Api.js';
+import Card from './Card.js';
 
 function Main(props) {
 
-  const [selectedCard, setSelectedCard] = React.useState();
   const [userInfo, setUserInfo] = React.useState({});
   const [cards, setCards] = React.useState([]);
 
@@ -17,7 +16,13 @@ React.useEffect(() => {
   })
 }, []);
 
-console.log(userInfo);
+React.useEffect(() => {
+  api.getCardList()
+  .then((res) => {
+    setCards(res);
+    
+  })
+}, []);
 
   return (
   
@@ -50,7 +55,18 @@ console.log(userInfo);
         ></button>
       </section>
 
-      <section className="places"></section>
+      <section className="places">
+
+      {cards.map((card, i) => (
+            <Card
+              key={i}
+              card={card}
+              handleCardClick={props.handleCardClick}
+            />
+          ))}
+   
+
+      </section>
 
 
     </main>

@@ -10,8 +10,8 @@ function PopupImage(props) {
             aria-label="close"
             onClick = {props.onExit}
           ></button>
-          <img alt="" className="popup__image" />
-          <p className="popup__subtext"></p>
+          <img alt="" className="popup__image" src={props.selectedCard.link}/>
+    <p className="popup__subtext">{props.selectedCard.name}</p>
         </div>
       </div>
     );
