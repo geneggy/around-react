@@ -1,31 +1,27 @@
-import React from 'react';
-import pen from '../images/pen.svg';
-import api from '../utils/Api.js';
-import Card from './Card.js';
+import React from "react";
+import pen from "../images/pen.svg";
+import api from "../utils/Api.js";
+import Card from "./Card.js";
 
 function Main(props) {
-
   const [userInfo, setUserInfo] = React.useState({});
   const [cards, setCards] = React.useState([]);
 
-React.useEffect(() => {
-  api.getUserInfo()
-  .then((user) => {
-    setUserInfo(user);
-    
-  })
-}, []);
+  React.useEffect(() => {
+    api.getUserInfo().then((user) => {
+      setUserInfo(user);
+    })
+    .catch((err) => console.log(err));;
+  }, []);
 
-React.useEffect(() => {
-  api.getCardList()
-  .then((res) => {
-    setCards(res);
-    
-  })
-}, []);
+  React.useEffect(() => {
+    api.getCardList().then((res) => {
+      setCards(res);
+    })
+    .catch((err) => console.log(err));;
+  }, []);
 
   return (
-  
     <main>
       <section className="profile">
         <div className="profile__avatar-container">
@@ -39,7 +35,7 @@ React.useEffect(() => {
         </div>
 
         <div className="profile__info">
-  <h1 className="profile__name">{userInfo.name}</h1>
+          <h1 className="profile__name">{userInfo.name}</h1>
           <button
             className="profile__edit-button"
             aria-label="open profile edit window"
@@ -56,19 +52,10 @@ React.useEffect(() => {
       </section>
 
       <section className="places">
-
-      {cards.map((card, i) => (
-            <Card
-              key={i}
-              card={card}
-              handleCardClick={props.handleCardClick}
-            />
-          ))}
-   
-
+        {cards.map((card, i) => (
+          <Card key={i} card={card} handleCardClick={props.handleCardClick} />
+        ))}
       </section>
-
-
     </main>
   );
 }

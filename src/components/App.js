@@ -40,14 +40,6 @@ function App() {
     setIsImageOpen(true);
   }
 
-  // props isOpen :will be true or false value.
-  // props name :edit / new-place /  avatar / delete(confirmation)
-  // props title : popup__title
-  // props submitButtonText: buttontext
-
-  // props onExit : close handler
-  // props onSubmit: submit handler
-
   return (
     <>
       <div className="page__content">
@@ -72,7 +64,6 @@ function App() {
           type="text"
           className="popup__form-name popup__input"
           id="name-input"
-          value=""
           name="name"
           placeholder="name"
           required
@@ -87,7 +78,6 @@ function App() {
           type="text"
           className="popup__form-about popup__input"
           id="about-input"
-          value=""
           name="about"
           placeholder="about"
           required
@@ -112,7 +102,6 @@ function App() {
           id="title-input"
           placeholder="Title"
           name="name"
-          value=""
           required
           minLength="1"
           maxLength="30"
@@ -127,7 +116,6 @@ function App() {
           id="link-input"
           placeholder="Image link"
           name="link"
-          value=""
           required
         />
         <span className="popup__error" id="link-input-error">
@@ -166,7 +154,6 @@ function App() {
               id="link-input"
               placeholder="Image link"
               name="avatar"
-              value=""
               required
             />
             <span className="popup__error" id="link-input-error">

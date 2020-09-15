@@ -21,7 +21,6 @@ class Api {
       .then((res) =>
         res.ok ? res.json() : Promise.reject(`Error: ${res.status}`)
       )
-      .catch((err) => console.log(err));
   }
 
   // get user info
@@ -32,7 +31,6 @@ class Api {
       .then((res) =>
         res.ok ? res.json() : Promise.reject(`Error: ${res.status}`)
       )
-      .catch((err) => console.log(err));
   }
 
   //PATCH https://around.nomoreparties.co/v1/groupId/users/me
@@ -45,7 +43,6 @@ class Api {
       .then((res) =>
         res.ok ? res.json() : Promise.reject(`Error: ${res.status}`)
       )
-      .catch((err) => console.log(err));
   }
 
   getAppInfo() {}
@@ -60,7 +57,6 @@ class Api {
       .then((res) =>
         res.ok ? res.json() : Promise.reject(`Error: ${res.status}`)
       )
-      .catch((err) => console.log(err));
   }
 
   //DELETE https://around.nomoreparties.co/v1/groupId/cards/cardId
@@ -73,7 +69,6 @@ class Api {
       .then((res) =>
         res.ok ? res.json() : Promise.reject(`Error: ${res.status}`)
       )
-      .catch((err) => console.log(err));
   }
 
   //PUT https://around.nomoreparties.co/v1/groupId/cards/likes/cardId
@@ -86,7 +81,6 @@ class Api {
       .then((res) =>
         res.ok ? res.json() : Promise.reject(`Error: ${res.status}`)
       )
-      .catch((err) => console.log(err));
   }
 
   //PATCH https://around.nomoreparties.co/v1/groupId/users/me/avatar
@@ -99,7 +93,6 @@ class Api {
       .then((res) =>
         res.ok ? res.json() : Promise.reject(`Error: ${res.status}`)
       )
-      .catch((err) => console.log(err));
   }
 }
 
