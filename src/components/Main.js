@@ -2,26 +2,13 @@ import React from "react";
 import pen from "../images/pen.svg";
 import api from "../utils/Api.js";
 import Card from "./Card.js";
+import {CurrentUserContext} from '../contexts/CurrentUserContext.js';
 
 function Main(props) {
-  const [userInfo, setUserInfo] = React.useState({});
-  const [cards, setCards] = React.useState([]);
 
-  React.useEffect(() => {
-    api.getUserInfo().then((user) => {
-      setUserInfo(user);
-    })
-    .catch((err) => console.log(err));;
-  }, []);
-
-  React.useEffect(() => {
-    api.getCardList().then((res) => {
-      setCards(res);
-    })
-    .catch((err) => console.log(err));;
-  }, []);
-
+  const userInfo = React.useContext(CurrentUserContext);
   return (
+
     <main>
       <section className="profile">
         <div className="profile__avatar-container">
@@ -52,11 +39,12 @@ function Main(props) {
       </section>
 
       <section className="places">
-        {cards.map((card, i) => (
-          <Card key={i} card={card} handleCardClick={props.handleCardClick} />
+        {props.cards.map((card, i) => (
+          <Card key={i} card={card} handleCardClick={props.handleCardClick} handleCardLike={props.handleCardLike} handeCardDelete={props.handleCardDelete} />
         ))}
       </section>
     </main>
+
   );
 }
 

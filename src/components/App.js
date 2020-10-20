@@ -5,6 +5,8 @@ import Main from './Main.js';
 import Footer from './Footer.js';
 import PopupWithForm from './PopupWithForm.js';
 import PopupImage from './PopupImage.js';
+import api from '../utils/Api.js';
+import {CurrentUserContext} from '../contexts/CurrentUserContext.js';
 
 function App() {
   const [isEditAvatarOpen, setIsEditAvatarOpen] = React.useState(false);
@@ -13,6 +15,10 @@ function App() {
   const [isDeleteOpen, setIsDeleteOpen] = React.useState(false);
   const [isImageOpen, setIsImageOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({});
+  const [currentUser, setCurrentUser] = React.useState({});
+  const [cards, setCards] = React.useState([]);
+
+
 
   function handleEditAvatarClick() {
     setIsEditAvatarOpen(true);
@@ -40,15 +46,66 @@ function App() {
     setIsImageOpen(true);
   }
 
+
+  function handleCardLike(card) {
+    // Check one more time if this card was already liked
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    
+    // Send a request to the API and getting the updated card data
+    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
+        // Create a new array based on the existing one and putting a new card into it
+      const newCards = cards.map((c) => c._id === card._id ? newCard : c);
+      // Update the state
+      setCards(newCards);
+    }).catch((err) => {
+      console.log(err);
+    });
+} 
+
+  function handleCardDelete(card) {
+    api.removeCard(card._id).then(() => {
+      const newCards = cards.filter(c => c._id !== card._id);
+      setCards(newCards);
+
+    }).catch((err) => {
+      console.log(err);
+    })
+  }
+
+
+
+  React.useEffect(() => {
+    api
+      .getUserInfo()
+      .then((userProfile) => {
+        setCurrentUser(userProfile);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  React.useEffect(() => {
+    api.getCardList().then((res) => {
+      setCards(res);
+    })
+    .catch((err) => console.log(err));;
+  }, []);
+
+
   return (
+    <CurrentUserContext.Provider value={currentUser}>
     <>
       <div className="page__content">
         <Header />
         <Main
+          cards={cards}
           handleAddPlaceClick={handleAddPlaceClick}
           handleEditAvatarClick={handleEditAvatarClick}
           handleEditProfileClick={handleEditProfileClick}
           handleCardClick={handleCardClick}
+          handleCardLike={handleCardLike}
+          handleCardDelete={handleCardDelete}
         />
         <Footer />
       </div>
@@ -163,6 +220,7 @@ function App() {
     </PopupWithForm>
 
     </>
+    </CurrentUserContext.Provider>
   );
 }
 
