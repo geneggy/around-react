@@ -52,7 +52,7 @@ class Api {
     return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers,
       method: "POST",
-      body: JSON.stringify(data),
+      body: JSON.stringify({name: data.title, link: data.link}),
     })
       .then((res) =>
         res.ok ? res.json() : Promise.reject(`Error: ${res.status}`)

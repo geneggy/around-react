@@ -1,6 +1,5 @@
 import React from "react";
 import pen from "../images/pen.svg";
-import api from "../utils/Api.js";
 import Card from "./Card.js";
 import {CurrentUserContext} from '../contexts/CurrentUserContext.js';
 
@@ -40,7 +39,7 @@ function Main(props) {
 
       <section className="places">
         {props.cards.map((card, i) => (
-          <Card key={i} card={card} handleCardClick={props.handleCardClick} handleCardLike={props.handleCardLike} handeCardDelete={props.handleCardDelete} />
+          <Card key={i} card={card} handleCardClick={props.handleCardClick} handleCardLike={props.handleCardLike} handleCardDelete={props.handleCardDelete} />
         ))}
       </section>
     </main>

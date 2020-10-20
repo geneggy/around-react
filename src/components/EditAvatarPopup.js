@@ -1,15 +1,9 @@
 import React from 'react';
-import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 import PopupWithForm from './PopupWithForm.js';
 
 function EditAvatarPopup(props) {
 
     const [avatarUrl, setAvatarUrl] = React.useState();
-
-
-    function handleAvatarUrlChange(e) {
-        setAvatarUrl(e.target.value);
-    }
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -38,7 +32,7 @@ function EditAvatarPopup(props) {
              placeholder="Image link"
              name="avatar"
              required
-             onChange={handleAvatarUrlChange}
+             onChange={(e) => {setAvatarUrl(e.target.value)}}
            />
            <span className="popup__error" id="link-input-error">
              Test

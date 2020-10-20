@@ -13,13 +13,6 @@ function EditProfilePopup(props) {
         setDescription(currentUser.about);
     }, [currentUser]);
 
-    function handleNameChange(e) {
-        setName(e.target.value);
-    }
-
-    function handleDescriptionChange(e) {
-        setDescription(e.target.value);
-    }
 
     function handleSubmit(e) {
         // Prevent the browser from navigating to the form address
@@ -50,7 +43,7 @@ function EditProfilePopup(props) {
         required
         minLength="2"
         maxLength="40"
-        onChange={handleNameChange}
+        onChange={(e) => {setName(e.target.value)}}
       />
       <span className="popup__error" id="name-input-error">
         Test
@@ -65,7 +58,7 @@ function EditProfilePopup(props) {
         required
         minLength="2"
         maxLength="200"
-        onChange={handleDescriptionChange}
+        onChange={(e) => {setDescription(e.target.value)}}
       />
       <span className="popup__error" id="name-input-error">
         Test

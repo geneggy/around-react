@@ -12,10 +12,10 @@ function Card(props) {
   const currentUser = React.useContext(CurrentUserContext);
   // Checking if you are the owner of the current card
 const isOwn = props.card.owner._id === currentUser._id;
-
+console.log(isOwn);
 // Creating a variable which you'll then set in `className` for the delete button
 const cardDeleteButtonClassName = (
-  `place__trash-button' ${isOwn ? '' : 'place__trash-button_hidden'}`
+  `place__trash-button ${isOwn ? '' : 'place__trash-button_hidden'}`
 ); 
 
 // Check if the card was liked by the current user

@@ -9,6 +9,7 @@ import api from '../utils/Api.js';
 import {CurrentUserContext} from '../contexts/CurrentUserContext.js';
 import EditProfilePopup from './EditProfilePopup.js';
 import EditAvatarPopup from './EditAvatarPopup.js';
+import AddPlacePopup from './AddPlacePopup.js';
 
 function App() {
   const [isEditAvatarOpen, setIsEditAvatarOpen] = React.useState(false);
@@ -91,6 +92,15 @@ function App() {
     })
   }
 
+  function handleAddPlace({title, link}) {
+    api.addCard({title, link}).then((newCard) => {
+      setCards([...cards, newCard]);
+      handleCloseAllPopups();
+    }).catch((err) => {
+      console.log(err);
+    })
+  }
+
   React.useEffect(() => {
     api
       .getUserInfo()
@@ -137,44 +147,16 @@ function App() {
       <EditAvatarPopup 
         isOpen={isEditAvatarOpen}
         onClose={handleCloseAllPopups}
-        onUpdateAvatar={handleUpdateAvatar}>
-
+        onUpdateAvatar={handleUpdateAvatar}
+        >
       </EditAvatarPopup>
 
-
-      <PopupWithForm
-       isOpen={isAddPlaceOpen}
-       onExit={handleCloseAllPopups}
-       name="new-place"
-       title="New Place"
-       submitButtonText="Create"
-      >
-        <input
-          type="text"
-          className="popup__form-title popup__input"
-          id="title-input"
-          placeholder="Title"
-          name="name"
-          required
-          minLength="1"
-          maxLength="30"
-        />
-        <span className="popup__error" id="title-input-error">
-          Test
-        </span>
-
-        <input
-          type="url"
-          className="popup__form-link popup__input"
-          id="link-input"
-          placeholder="Image link"
-          name="link"
-          required
-        />
-        <span className="popup__error" id="link-input-error">
-          Test
-        </span>
-      </PopupWithForm>
+      <AddPlacePopup 
+        isOpen={isAddPlaceOpen} 
+        onClose={handleCloseAllPopups} 
+        onAddPlace={handleAddPlace} 
+        >
+      </AddPlacePopup>
 
       <PopupImage
         onExit = {handleCloseAllPopups}
