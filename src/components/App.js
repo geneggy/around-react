@@ -7,6 +7,8 @@ import PopupWithForm from './PopupWithForm.js';
 import PopupImage from './PopupImage.js';
 import api from '../utils/Api.js';
 import {CurrentUserContext} from '../contexts/CurrentUserContext.js';
+import EditProfilePopup from './EditProfilePopup.js';
+import EditAvatarPopup from './EditAvatarPopup.js';
 
 function App() {
   const [isEditAvatarOpen, setIsEditAvatarOpen] = React.useState(false);
@@ -46,7 +48,6 @@ function App() {
     setIsImageOpen(true);
   }
 
-
   function handleCardLike(card) {
     // Check one more time if this card was already liked
     const isLiked = card.likes.some(i => i._id === currentUser._id);
@@ -72,7 +73,23 @@ function App() {
     })
   }
 
+  function handleUpdateUser({name, about}) {
+    api.setUserInfo({name, about}).then((res) => {
+      setCurrentUser(res);
+      handleCloseAllPopups();
+    }).catch((err) => {
+      console.log(err);
+    })
+  }
 
+  function handleUpdateAvatar(link) {
+    api.setUserAvatar(link).then((res) => {
+      setCurrentUser(res);
+      handleCloseAllPopups();
+    }).catch((err) => {
+      console.log(err);
+    })
+  }
 
   React.useEffect(() => {
     api
@@ -110,41 +127,20 @@ function App() {
         <Footer />
       </div>
 
-      <PopupWithForm
-        onExit={handleCloseAllPopups}
-        isOpen={isEditProfileOpen}
-        name="edit"
-        title="Edit Profile"
-        submitButtonText="Save"
+      <EditProfilePopup
+        handleCloseAllPopups={handleCloseAllPopups}
+        isEditProfileOpen={isEditProfileOpen}
+        onUpdateUser={handleUpdateUser}
       >
-        <input
-          type="text"
-          className="popup__form-name popup__input"
-          id="name-input"
-          name="name"
-          placeholder="name"
-          required
-          minLength="2"
-          maxLength="40"
-        />
-        <span className="popup__error" id="name-input-error">
-          Test
-        </span>
+      </EditProfilePopup>
 
-        <input
-          type="text"
-          className="popup__form-about popup__input"
-          id="about-input"
-          name="about"
-          placeholder="about"
-          required
-          minLength="2"
-          maxLength="200"
-        />
-        <span className="popup__error" id="name-input-error">
-          Test
-        </span>
-      </PopupWithForm>
+      <EditAvatarPopup 
+        isOpen={isEditAvatarOpen}
+        onClose={handleCloseAllPopups}
+        onUpdateAvatar={handleUpdateAvatar}>
+
+      </EditAvatarPopup>
+
 
       <PopupWithForm
        isOpen={isAddPlaceOpen}
@@ -197,27 +193,6 @@ function App() {
       </PopupWithForm>
 
 
-      <PopupWithForm
-       isOpen={isEditAvatarOpen}
-       onExit={handleCloseAllPopups}
-       name="avatar"
-       containerName="popup__container_avatar"
-       title="Edit Profile Picture"
-       submitButtonText="Save"
-      >
-            <input
-              type="url"
-              className="popup__form-link popup__input"
-              id="link-input"
-              placeholder="Image link"
-              name="avatar"
-              required
-            />
-            <span className="popup__error" id="link-input-error">
-              Test
-            </span>
-
-    </PopupWithForm>
 
     </>
     </CurrentUserContext.Provider>
