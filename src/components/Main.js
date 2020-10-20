@@ -1,13 +1,11 @@
 import React from "react";
 import pen from "../images/pen.svg";
 import Card from "./Card.js";
-import {CurrentUserContext} from '../contexts/CurrentUserContext.js';
+import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 
 function Main(props) {
-
   const userInfo = React.useContext(CurrentUserContext);
   return (
-
     <main>
       <section className="profile">
         <div className="profile__avatar-container">
@@ -16,7 +14,7 @@ function Main(props) {
             src={pen}
             alt="button"
             className="profile__avatar-edit"
-            onClick={props.handleEditAvatarClick}
+            onClick={props.onEditAvatarClick}
           />
         </div>
 
@@ -25,7 +23,7 @@ function Main(props) {
           <button
             className="profile__edit-button"
             aria-label="open profile edit window"
-            onClick={props.handleEditProfileClick}
+            onClick={props.onEditProfileClick}
           ></button>
           <p className="profile__subtitle">{userInfo.about}</p>
         </div>
@@ -33,17 +31,22 @@ function Main(props) {
         <button
           className="profile__add-button"
           aria-label="open add new image button"
-          onClick={props.handleAddPlaceClick}
+          onClick={props.onAddPlaceClick}
         ></button>
       </section>
 
       <section className="places">
         {props.cards.map((card, i) => (
-          <Card key={i} card={card} handleCardClick={props.handleCardClick} handleCardLike={props.handleCardLike} handleCardDelete={props.handleCardDelete} />
+          <Card
+            key={i}
+            card={card}
+            onCardClick={props.onCardClick}
+            onCardLike={props.onCardLike}
+            onCardDelete={props.onCardDelete}
+          />
         ))}
       </section>
     </main>
-
   );
 }
 

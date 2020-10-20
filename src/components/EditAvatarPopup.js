@@ -1,22 +1,19 @@
-import React from 'react';
-import PopupWithForm from './PopupWithForm.js';
+import React from "react";
+import PopupWithForm from "./PopupWithForm.js";
 
 function EditAvatarPopup(props) {
+  const [avatarUrl, setAvatarUrl] = React.useState();
 
-    const [avatarUrl, setAvatarUrl] = React.useState();
+  function handleSubmit(e) {
+    e.preventDefault();
 
-    function handleSubmit(e) {
-        e.preventDefault();
+    props.onUpdateAvatar({
+      avatar: avatarUrl,
+    });
+  }
 
-        props.onUpdateAvatar({
-            avatar: avatarUrl
-        })
-    }
-
-    return (
-
-
-      <PopupWithForm
+  return (
+    <PopupWithForm
       isOpen={props.isOpen}
       onExit={props.onClose}
       name="avatar"
@@ -24,24 +21,23 @@ function EditAvatarPopup(props) {
       title="Edit Profile Picture"
       submitButtonText="Save"
       onSubmit={handleSubmit}
-     >
-           <input
-             type="url"
-             className="popup__form-link popup__input"
-             id="link-input"
-             placeholder="Image link"
-             name="avatar"
-             required
-             onChange={(e) => {setAvatarUrl(e.target.value)}}
-           />
-           <span className="popup__error" id="link-input-error">
-             Test
-           </span>
-
-   </PopupWithForm>
-    )
+    >
+      <input
+        type="url"
+        className="popup__form-link popup__input"
+        id="link-input"
+        placeholder="Image link"
+        name="avatar"
+        required
+        onChange={(e) => {
+          setAvatarUrl(e.target.value);
+        }}
+      />
+      <span className="popup__error" id="link-input-error">
+        Test
+      </span>
+    </PopupWithForm>
+  );
 }
 
 export default EditAvatarPopup;
-
-
