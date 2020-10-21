@@ -1,16 +1,4 @@
 import React from "react";
-// props isOpen :will be true or false value.
-// props name :edit / new-place /  avatar / delete(confirmation)
-// props title : popup__title
-// props submitButtonText: buttontext
-
-// props onExit : close handler
-// props onSubmit: submit handler
-
-// next step, export this to separate components with specific form fields and submit buttons or
-// write a way to generate unique form fields and submit button for each unique popup... or
-// write separate components for form fields and button?
-// or pass input fields as children in main.js <---- probably easiest but seems kinda hacky
 
 function PopupWithForm(props) {
   return (

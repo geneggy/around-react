@@ -122,10 +122,8 @@ function App() {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
 
-  React.useEffect(() => {
-    api
+      api
       .getCardList()
       .then((res) => {
         setCards(res);
